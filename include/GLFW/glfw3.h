@@ -598,7 +598,7 @@ extern "C" {
  *  If emitted during window creation, the requested pixel format is not
  *  supported.
  *
- *  If emitted when querying the clipboard, the contents of the clipboard could
+ *  If emitted when querying the clipboard or selection, the contents could
  *  not be converted to the requested format.
  *
  *  @analysis If emitted during window creation, one or more
@@ -608,8 +608,8 @@ extern "C" {
  *  their machine does not match your requirements.
  *
  *  @par
- *  If emitted when querying the clipboard, ignore the error or report it to
- *  the user, as appropriate.
+ *  If emitted when querying the clipboard or selection, ignore the error or
+ *  report it to the user, as appropriate.
  */
 #define GLFW_FORMAT_UNAVAILABLE     0x00010009
 /*! @brief The specified window does not have an OpenGL or OpenGL ES context.
@@ -3654,6 +3654,69 @@ GLFWAPI const char* glfwGetJoystickName(int joy);
  *  @ingroup input
  */
 GLFWAPI GLFWjoystickfun glfwSetJoystickCallback(GLFWjoystickfun cbfun);
+
+/*! @brief Sets the current selection to the specified string.
+ *
+ *  This function sets the system selection to the specified, UTF-8 encoded
+ *  string. In window systems such as X11, this sets the primary selection,
+ *  which works similar to the clipboard. Not all window systems have the
+ *  notion of a selection; if not, this function does nothing.
+ *
+ *  @param[in] window The window that will own the selection contents.
+ *  @param[in] string A UTF-8 encoded string.
+ *
+ *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED and @ref
+ *  GLFW_PLATFORM_ERROR.
+ *
+ *  @pointer_lifetime The specified string is copied before this function
+ *  returns.
+ *
+ *  @thread_safety This function must only be called from the main thread.
+ *
+ *  @sa @ref clipboard
+ *  @sa glfwGetSelectionString
+ *  @sa glfwSetClipboardString
+ *
+ *  @since Added in version 3.0.
+ *
+ *  @ingroup input
+ */
+GLFWAPI void glfwSetSelectionString(GLFWwindow* window, const char* string);
+
+/*! @brief Returns the contents of the current selection as a string.
+ *
+ *  This function returns the contents of the system selection, if it contains
+ *  or is convertible to a UTF-8 encoded string.  If the selection is empty or
+ *  if its contents cannot be converted, `NULL` is returned and a @ref
+ *  GLFW_FORMAT_UNAVAILABLE error is generated.
+ *
+ *  In window systems such as X11, this gets the primary selection, which
+ *  works similar to the clipboard. Not all window systems have the notion of
+ *  a selection; if not, this function always returns `NULL`.
+ *
+ *  @param[in] window The window that will request the selection contents.
+ *  @return The contents of the selection as a UTF-8 encoded string, or `NULL`
+ *  if an [error](@ref error_handling) occurred.
+ *
+ *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED and @ref
+ *  GLFW_PLATFORM_ERROR.
+ *
+ *  @pointer_lifetime The returned string is allocated and freed by GLFW.  You
+ *  should not free it yourself.  It is valid until the next call to @ref
+ *  glfwGetSelectionString or @ref glfwSetSelectionString, or until the library
+ *  is terminated.
+ *
+ *  @thread_safety This function must only be called from the main thread.
+ *
+ *  @sa @ref clipboard
+ *  @sa glfwSetSelectionString
+ *  @sa glfwGetClipboardString
+ *
+ *  @since Added in version 3.0.
+ *
+ *  @ingroup input
+ */
+GLFWAPI const char* glfwGetSelectionString(GLFWwindow* window);
 
 /*! @brief Sets the clipboard to the specified string.
  *

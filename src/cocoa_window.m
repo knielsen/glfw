@@ -1583,6 +1583,16 @@ void _glfwPlatformSetCursor(_GLFWwindow* window, _GLFWcursor* cursor)
         updateCursorImage(window);
 }
 
+void _glfwPlatformSetSelectionString(_GLFWwindow* window, const char* string)
+{
+    /* Not implemented. */
+}
+
+const char* _glfwPlatformGetSelectionString(_GLFWwindow* window)
+{
+    return NULL;                                /* Not implemented */
+}
+
 void _glfwPlatformSetClipboardString(_GLFWwindow* window, const char* string)
 {
     NSArray* types = [NSArray arrayWithObjects:NSStringPboardType, nil];

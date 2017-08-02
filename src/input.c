@@ -605,6 +605,25 @@ GLFWAPI GLFWjoystickfun glfwSetJoystickCallback(GLFWjoystickfun cbfun)
     return cbfun;
 }
 
+GLFWAPI void glfwSetSelectionString(GLFWwindow* handle, const char* string)
+{
+    _GLFWwindow* window = (_GLFWwindow*) handle;
+    assert(window != NULL);
+    assert(string != NULL);
+
+    _GLFW_REQUIRE_INIT();
+    _glfwPlatformSetSelectionString(window, string);
+}
+
+GLFWAPI const char* glfwGetSelectionString(GLFWwindow* handle)
+{
+    _GLFWwindow* window = (_GLFWwindow*) handle;
+    assert(window != NULL);
+
+    _GLFW_REQUIRE_INIT_OR_RETURN(NULL);
+    return _glfwPlatformGetSelectionString(window);
+}
+
 GLFWAPI void glfwSetClipboardString(GLFWwindow* handle, const char* string)
 {
     _GLFWwindow* window = (_GLFWwindow*) handle;

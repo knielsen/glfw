@@ -86,6 +86,28 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
     }
 }
 
+static void mouse_button_callback(GLFWwindow *window, int button, int action, int mods)
+{
+    if (action != GLFW_PRESS)
+        return;
+    if (button == GLFW_MOUSE_BUTTON_LEFT)
+    {
+        const char* string = "GLFW Selection";
+        glfwSetSelectionString(window, string);
+        printf("Setting selection to \"%s\"\n", string);
+    }
+    if (button == GLFW_MOUSE_BUTTON_MIDDLE)
+    {
+        const char* string;
+
+        string = glfwGetSelectionString(window);
+        if (string)
+            printf("Selection contains \"%s\"\n", string);
+        else
+            printf("Selection does not contain a string\n");
+    }
+}
+
 static void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
@@ -132,6 +154,7 @@ int main(int argc, char** argv)
     glfwSwapInterval(1);
 
     glfwSetKeyCallback(window, key_callback);
+    glfwSetMouseButtonCallback(window, mouse_button_callback);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     glMatrixMode(GL_PROJECTION);
