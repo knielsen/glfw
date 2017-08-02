@@ -637,6 +637,24 @@ The clipboard functions take a window handle argument because some window
 systems require a window to communicate with the system clipboard.  Any valid
 window may be used.
 
+Some window systems (notably X11) also has the notion of a "selection"
+that works similar to the clipboard, but usually without the need for
+explicit copy action (like control-C). This can be accessed similarly
+with @ref glfwGetSelectionString @ref glfwSetSelectionString
+
+@code
+const char* text = glfwGetSelectionString(window);
+if (text)
+    insert_text(text);
+@endcode
+
+@code
+glfwSetSelectionString(window, "Another string with words in it");
+@endcode
+
+On window systems without a notion of selection, setting does nothing
+and getting will always return NULL.
+
 
 @section path_drop Path drop input
 

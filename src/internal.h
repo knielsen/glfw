@@ -582,6 +582,19 @@ void _glfwPlatformGetGammaRamp(_GLFWmonitor* monitor, GLFWgammaramp* ramp);
  */
 void _glfwPlatformSetGammaRamp(_GLFWmonitor* monitor, const GLFWgammaramp* ramp);
 
+/*! @copydoc glfwSetSelectionString
+ *  @ingroup platform
+ */
+void _glfwPlatformSetSelectionString(_GLFWwindow* window, const char* string);
+
+/*! @copydoc glfwGetSelectionString
+ *  @ingroup platform
+ *
+ *  @note The returned string must be valid until the next call to @ref
+ *  _glfwPlatformGetSelectionString or @ref _glfwPlatformSetSelectionString.
+ */
+const char* _glfwPlatformGetSelectionString(_GLFWwindow* window);
+
 /*! @copydoc glfwSetClipboardString
  *  @ingroup platform
  */

@@ -945,6 +945,21 @@ void _glfwPlatformSetCursor(_GLFWwindow* window, _GLFWcursor* cursor)
     }
 }
 
+void _glfwPlatformSetSelectionString(_GLFWwindow* window, const char* string)
+{
+    // TODO
+    _glfwInputError(GLFW_PLATFORM_ERROR,
+                    "Wayland: Selection setting not implemented yet");
+}
+
+const char* _glfwPlatformGetSelectionString(_GLFWwindow* window)
+{
+    // TODO
+    _glfwInputError(GLFW_PLATFORM_ERROR,
+                    "Wayland: Selection getting not implemented yet");
+    return NULL;
+}
+
 void _glfwPlatformSetClipboardString(_GLFWwindow* window, const char* string)
 {
     // TODO
